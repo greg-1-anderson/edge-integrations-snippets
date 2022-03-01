@@ -180,12 +180,12 @@ function register_acf_fields() {
 function render_the_geo_content( string $content ) : string {
 	$geo_content = get_field( 'group_621e5e5f8c64f' );
 
+	// For now, let's just dump the content.
+	var_dump( $geo_content ); // phpcs:ignore
 	if ( ! $geo_content ) {
 		return $content;
 	}
 
-	// For now, let's just dump the content.
-	var_dump( $geo_content ); // phpcs:ignore
 
 	return $content;
 }
