@@ -186,6 +186,5 @@ function render_the_geo_content( string $content ) : string {
 		return $content;
 	}
 
-
 	return $content;
 }
