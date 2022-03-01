@@ -179,6 +179,7 @@ function register_acf_fields() {
  */
 function render_the_geo_content( string $content ) : string {
 	$geo_content = get_field( 'group_621e5e5f8c64f' );
+	$content .= '<!-- Geo Content -->';
 	var_dump( get_fields() ); // phpcs:ignore
 	// For now, let's just dump the content.
 	var_dump( $geo_content ); // phpcs:ignore
