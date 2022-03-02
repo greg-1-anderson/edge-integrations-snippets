@@ -13,7 +13,7 @@ namespace Pantheon\EI\WP\Geo\ACF;
 function bootstrap() {
 	add_action( 'admin_init', __NAMESPACE__ . '\\check_dependencies' );
 	add_action( 'init', __NAMESPACE__ . '\\register_acf_fields' );
-	apply_filters( 'the_content', __NAMESPACE__ . '\\render_the_geo_content' );
+	add_filter( 'the_content', __NAMESPACE__ . '\\render_the_geo_content' );
 }
 
 /**
