@@ -7,6 +7,8 @@
 
 namespace Pantheon\EI\WP\Geo\ACF;
 
+use Pantheon\EI\WP\Geo;
+
 /**
  * Kick off the plugin.
  */
@@ -179,13 +181,19 @@ function register_acf_fields() {
  */
 function render_the_geo_content( string $content ) : string {
 	$geo_content = get_field( 'group_621e5e5f8c64f' );
-	$content .= '<!-- Geo Content -->';
-	var_dump( get_fields() ); // phpcs:ignore
-	// For now, let's just dump the content.
-	var_dump( $geo_content ); // phpcs:ignore
+	$geo = strtolower( Geo\get_geo( 'country' ) );
+
 	if ( ! $geo_content ) {
 		return $content;
 	}
+
+	$content .= '<!-- Geo Content -->';
+	if ( isset( $geo_content[ $geo . '_content'] ) ) {
+		$content .= $geo_content[ $geo . '_content' ];
+	} else {
+		$content .= $geo_content['default_content'];
+	}
+	$content .= '<!-- End Geo Content -->';
 
 	return $content;
 }
