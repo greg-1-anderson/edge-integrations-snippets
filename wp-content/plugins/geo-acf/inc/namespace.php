@@ -183,7 +183,7 @@ function render_the_geo_content( string $content ) : string {
 	// Get the geo content and the geo country.
 	$geo_content = get_field( 'group_621e5e5f8c64f' );
 	$geo = strtolower( Geo\get_geo( 'country' ) );
-
+var_dump($geo_content, $geo);//phpcs:ignore
 	if ( ! $geo_content ) {
 		return $content;
 	}
