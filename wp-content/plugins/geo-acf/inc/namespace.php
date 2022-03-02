@@ -188,7 +188,7 @@ function render_the_geo_content( string $content ) : string {
 	}
 
 	$content .= '<!-- Geo Content -->';
-	if ( isset( $geo_content[ $geo . '_content'] ) ) {
+	if ( isset( $geo_content[ $geo . '_content' ] ) ) {
 		$content .= $geo_content[ $geo . '_content' ];
 	} else {
 		$content .= $geo_content['default_content'];
