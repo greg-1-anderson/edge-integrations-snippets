@@ -113,9 +113,9 @@ function register_cmb2_metaboxes() {
 		'show_option_none' => true,
 		'default'          => 'custom',
 		'options'          => [
-			'us' => __( 'US content', 'geo-cmb2' ),
-			'ca' => __( 'Canadian content', 'geo-cmb2' ),
-			'fr' => __( 'French content', 'geo-cmb2' ),
+			'us' => __( 'US', 'geo-cmb2' ),
+			'ca' => __( 'Canada', 'geo-cmb2' ),
+			'fr' => __( 'France', 'geo-cmb2' ),
 		],
 	] );
 
