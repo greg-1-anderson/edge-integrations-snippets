@@ -65,7 +65,7 @@ function plugin_notice() {
 function register_acf_fields() {
 	acf_add_local_field_group([
 		'key' => 'group_621e5e5f8c64f',
-		'title' => 'Geo',
+		'title' => 'ACF Geo',
 		'fields' => [
 			[
 				'key' => 'field_621e5e72a4a3a',
@@ -188,13 +188,13 @@ function render_the_geo_content( string $content ) : string {
 		return $content;
 	}
 
-	$content .= '<!-- Geo Content -->';
+	$content .= '<!-- Geo ACF Content -->';
 	if ( isset( $geo_content[ $geo . '_content' ] ) ) {
 		$content .= $geo_content[ $geo . '_content' ];
 	} else {
 		$content .= $geo_content['default_content'];
 	}
-	$content .= '<!-- End Geo Content -->';
+	$content .= '<!-- End Geo ACF Content -->';
 
 	return $content;
 }
