@@ -47,7 +47,12 @@ function check_dependencies() {
 	}
 }
 
-function register_script( $hook ) {
+/**
+ * Register scripts and styles.
+ *
+ * @param string $hook_suffix The current admin page.
+ */
+function register_script( $hook_suffix ) {
 	if ( 'post.php' !== $hook ) {
 		return;
 	}
@@ -80,73 +85,72 @@ function plugin_notice() {
  * Register the CMB2 fields.
  */
 function register_cmb2_metaboxes() {
-	$cmb = new_cmb2_box( array(
+	$cmb = new_cmb2_box( [
 		'id'            => 'geo_cmb2_metabox',
 		'title'         => __( 'CMB2 Geo', 'geo-cmb2' ),
-		'object_types'  => array( 'page', ),
+		'object_types'  => [ 'page' ],
 		'context'       => 'normal',
 		'priority'      => 'low',
-		'closed'     	=> true,
-	) );
-	
-	// Repeatable group
-	$group_repeat_test = $cmb->add_field( array(
+		'closed'        => true,
+	] );
+
+	// Declare our repeatable group.
+	$group_repeat_test = $cmb->add_field( [
 		'id'          => 'geo_cmb2_section',
 		'type'        => 'group',
-		'options'     => array(
+		'options'     => [
 			'group_title'   => __( 'Language', 'geo-cmb2' ) . ' {#}', // {#} gets replaced by row number
 			'add_button'    => __( 'Add another Language', 'geo-cmb2' ),
 			'remove_button' => __( 'Remove Language', 'geo-cmb2' ),
-		),
-	) );
+		],
+	] );
 
-	//* Title
-	$cmb->add_group_field( $group_repeat_test, array(
+	$cmb->add_group_field( $group_repeat_test, [
 		'name'             => 'Country Select',
 		'desc'             => 'Select an option',
 		'id'               => 'country_text_select',
 		'type'             => 'select',
 		'show_option_none' => true,
 		'default'          => 'custom',
-		'options'          => array(
+		'options'          => [
 			'us' => __( 'US content', 'geo-cmb2' ),
 			'ca' => __( 'Canadian content', 'geo-cmb2' ),
 			'fr' => __( 'French content', 'geo-cmb2' ),
-		),
-	) );
+		],
+	] );
 
-	$cmb->add_group_field( $group_repeat_test, array(
+	$cmb->add_group_field( $group_repeat_test, [
 		'name'       => __( 'US content', 'geo-cmb2' ),
 		'desc'       => __( 'Content to show to US-based visitors.', 'geo-cmb2' ),
 		'id'         => 'us_cmb2_content',
 		'type'       => 'text',
-        'attributes' => array(
-            'data-conditional-id'     => 'country_text_select',
-            'data-conditional-value'  => 'us',
-        ),
-	) );
+		'attributes' => [
+			'data-conditional-id'     => 'country_text_select',
+			'data-conditional-value'  => 'us',
+		],
+	] );
 
-	$cmb->add_group_field( $group_repeat_test, array(
+	$cmb->add_group_field( $group_repeat_test, [
 		'name'       => __( 'CA content', 'geo-cmb2' ),
 		'desc'       => __( 'Content to show to CA-based visitors.', 'geo-cmb2' ),
 		'id'         => 'ca_cmb2_content',
 		'type'       => 'text',
-        'attributes' => array(
-            'data-conditional-id'     => 'country_text_select',
-            'data-conditional-value'  => 'ca',
-        ),
-	) );
+		'attributes' => [
+			'data-conditional-id'     => 'country_text_select',
+			'data-conditional-value'  => 'ca',
+		],
+	] );
 
-	$cmb->add_group_field( $group_repeat_test, array(
+	$cmb->add_group_field( $group_repeat_test, [
 		'name'       => __( 'FR content', 'geo-cmb2' ),
 		'desc'       => __( 'Content to show to FR-based visitors.', 'geo-cmb2' ),
 		'id'         => 'fr_cmb2_content',
 		'type'       => 'text',
-        'attributes' => array(
-            'data-conditional-id'     => 'country_text_select',
-            'data-conditional-value'  => 'fr',
-        ),
-	) );
+		'attributes' => [
+			'data-conditional-id'     => 'country_text_select',
+			'data-conditional-value'  => 'fr',
+		],
+	] );
 }
 
 /**
