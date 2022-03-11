@@ -53,7 +53,7 @@ function check_dependencies() {
  * @param string $hook_suffix The current admin page.
  */
 function register_script( $hook_suffix ) {
-	if ( 'post.php' !== $hook ) {
+	if ( 'post.php' !== $hook_suffix ) {
 		return;
 	}
 
