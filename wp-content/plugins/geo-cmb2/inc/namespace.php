@@ -99,9 +99,9 @@ function register_cmb2_metaboxes() {
 		'id'          => 'geo_cmb2_section',
 		'type'        => 'group',
 		'options'     => [
-			'group_title'   => __( 'Language', 'geo-cmb2' ) . ' {#}', // {#} gets replaced by row number
-			'add_button'    => __( 'Add another Language', 'geo-cmb2' ),
-			'remove_button' => __( 'Remove Language', 'geo-cmb2' ),
+			'group_title'   => __( 'Translation', 'geo-cmb2' ) . ' {#}', // {#} gets replaced by row number
+			'add_button'    => __( 'Add another Translation', 'geo-cmb2' ),
+			'remove_button' => __( 'Remove Translation', 'geo-cmb2' ),
 		],
 	] );
 
