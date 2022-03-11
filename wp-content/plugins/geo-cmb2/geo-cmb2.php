@@ -3,7 +3,7 @@
  * Plugin Name: Geolocation CMB2 Tests
  * Description: Renders content with CMB2 based on the user's location.
  * Author: Pantheon
- * Author URI: https://github.com/pantheon-systems
+ * Author URI: https://pantheon.io
  * Version: 1.0
  */
 
