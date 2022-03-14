@@ -176,11 +176,11 @@ function render_the_geo_content( string $content ) : string {
 
 	$content .= '<!-- Geo CMB2 Content -->';
 	if ( ! $geo_content ) {
-		$content .= '<p>' . wp_kses_post( $default_content ) . '</p>';
+		$content .= wp_kses_post( $default_content );
 	}
 
 	if ( isset( $geo_content ) ) {
-		$content .= '<p>' . wp_kses_post( $geo_content ) . '</p>';
+		$content .= wp_kses_post( $geo_content );
 	}
 	$content .= '<!-- End Geo CMB2 Content -->';
 
