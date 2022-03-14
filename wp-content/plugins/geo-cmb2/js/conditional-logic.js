@@ -12,6 +12,8 @@
           inverted = (el.dataset.conditionalInvert) ? true : false,
           condParent = el.closest('.cmb-row'),
           inGroup = condParent.classList.contains('cmb-repeat-group-field');
+          console.log(condName);
+          console.log(condValue);
   
         let initAction = (inverted === true) ? 'show' : 'hide';
   

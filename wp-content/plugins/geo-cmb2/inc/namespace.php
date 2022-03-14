@@ -94,6 +94,13 @@ function register_cmb2_metaboxes() {
 		'closed'        => true,
 	] );
 
+	$cmb->add_field( [
+		'name'       => __( 'Default content', 'geo-cmb2' ),
+		'desc'       => __( 'Content to show to site visitors.', 'geo-cmb2' ),
+		'id'         => 'default_cmb2_content',
+		'type'       => 'textarea',
+	] );
+
 	// Declare our repeatable group.
 	$group_repeat_test = $cmb->add_field( [
 		'id'          => 'geo_cmb2_section',
@@ -110,12 +117,13 @@ function register_cmb2_metaboxes() {
 		'desc'             => 'Select an option',
 		'id'               => 'country_text_select',
 		'type'             => 'select',
-		'show_option_none' => true,
+		'show_option_none' => false,
 		'default'          => 'custom',
 		'options'          => [
-			'us' => __( 'US', 'geo-cmb2' ),
-			'ca' => __( 'Canada', 'geo-cmb2' ),
-			'fr' => __( 'France', 'geo-cmb2' ),
+			'none' => __( 'None', 'geo-cmb2' ),
+			'us'   => __( 'US', 'geo-cmb2' ),
+			'ca'   => __( 'Canada', 'geo-cmb2' ),
+			'fr'   => __( 'France', 'geo-cmb2' ),
 		],
 	] );
 
@@ -123,7 +131,7 @@ function register_cmb2_metaboxes() {
 		'name'       => __( 'US content', 'geo-cmb2' ),
 		'desc'       => __( 'Content to show to US-based visitors.', 'geo-cmb2' ),
 		'id'         => 'us_cmb2_content',
-		'type'       => 'text',
+		'type'       => 'textarea',
 		'attributes' => [
 			'data-conditional-id'     => 'country_text_select',
 			'data-conditional-value'  => 'us',
@@ -134,7 +142,7 @@ function register_cmb2_metaboxes() {
 		'name'       => __( 'CA content', 'geo-cmb2' ),
 		'desc'       => __( 'Content to show to CA-based visitors.', 'geo-cmb2' ),
 		'id'         => 'ca_cmb2_content',
-		'type'       => 'text',
+		'type'       => 'textarea',
 		'attributes' => [
 			'data-conditional-id'     => 'country_text_select',
 			'data-conditional-value'  => 'ca',
@@ -145,7 +153,7 @@ function register_cmb2_metaboxes() {
 		'name'       => __( 'FR content', 'geo-cmb2' ),
 		'desc'       => __( 'Content to show to FR-based visitors.', 'geo-cmb2' ),
 		'id'         => 'fr_cmb2_content',
-		'type'       => 'text',
+		'type'       => 'textarea',
 		'attributes' => [
 			'data-conditional-id'     => 'country_text_select',
 			'data-conditional-value'  => 'fr',
@@ -168,11 +176,11 @@ function render_the_geo_content( string $content ) : string {
 
 	$content .= '<!-- Geo CMB2 Content -->';
 	if ( ! $geo_content ) {
-		$content .= '<p>' . esc_html( $default_content ) . '</p>';
+		$content .= '<p>' . wp_kses_post( $default_content ) . '</p>';
 	}
 
 	if ( isset( $geo_content ) ) {
-		$content .= '<p>' . esc_html( $geo_content ) . '</p>';
+		$content .= '<p>' . wp_kses_post( $geo_content ) . '</p>';
 	}
 	$content .= '<!-- End Geo CMB2 Content -->';
 
