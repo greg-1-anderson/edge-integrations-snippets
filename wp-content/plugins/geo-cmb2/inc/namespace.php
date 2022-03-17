@@ -21,7 +21,6 @@ function bootstrap() {
 	define( 'GEO_CMB2_VERSION', $plugin_version );
 
 	add_action( 'admin_init', __NAMESPACE__ . '\\check_dependencies' );
-	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\register_script' );
 	add_action( 'cmb2_admin_init', __NAMESPACE__ . '\\register_cmb2_metaboxes' );
 	add_filter( 'the_content', __NAMESPACE__ . '\\render_the_geo_content' );
 }
@@ -45,20 +44,6 @@ function check_dependencies() {
 			unset( $_GET['activate'] );
 		}
 	}
-}
-
-/**
- * Register scripts and styles.
- *
- * @param string $hook_suffix The current admin page.
- */
-function register_script( $hook_suffix ) {
-	if ( 'post.php' !== $hook_suffix ) {
-		return;
-	}
-
-	wp_enqueue_style( 'geo-cmb2-styles', plugins_url( '/css/geo-cmb2.css', GEO_CMB2_FILE ), [], GEO_CMB2_VERSION );
-	wp_enqueue_script( 'geo-cmb2-conditional-logic', plugins_url( '/js/conditional-logic.js', GEO_CMB2_FILE ), [], GEO_CMB2_VERSION, true );
 }
 
 /**
@@ -128,36 +113,10 @@ function register_cmb2_metaboxes() {
 	] );
 
 	$cmb->add_group_field( $group_repeat_test, [
-		'name'       => __( 'US content', 'geo-cmb2' ),
-		'desc'       => __( 'Content to show to US-based visitors.', 'geo-cmb2' ),
-		'id'         => 'us_cmb2_content',
+		'name'       => __( 'Translation content', 'geo-cmb2' ),
+		'desc'       => __( 'Content to show to location-specific visitors.', 'geo-cmb2' ),
+		'id'         => 'cmb2_content',
 		'type'       => 'textarea',
-		'attributes' => [
-			'data-conditional-id'     => 'country_text_select',
-			'data-conditional-value'  => 'us',
-		],
-	] );
-
-	$cmb->add_group_field( $group_repeat_test, [
-		'name'       => __( 'CA content', 'geo-cmb2' ),
-		'desc'       => __( 'Content to show to CA-based visitors.', 'geo-cmb2' ),
-		'id'         => 'ca_cmb2_content',
-		'type'       => 'textarea',
-		'attributes' => [
-			'data-conditional-id'     => 'country_text_select',
-			'data-conditional-value'  => 'ca',
-		],
-	] );
-
-	$cmb->add_group_field( $group_repeat_test, [
-		'name'       => __( 'FR content', 'geo-cmb2' ),
-		'desc'       => __( 'Content to show to FR-based visitors.', 'geo-cmb2' ),
-		'id'         => 'fr_cmb2_content',
-		'type'       => 'textarea',
-		'attributes' => [
-			'data-conditional-id'     => 'country_text_select',
-			'data-conditional-value'  => 'fr',
-		],
 	] );
 }
 
@@ -177,13 +136,14 @@ function render_the_geo_content( string $content ) : string {
 	if ( ! empty( $geo ) ) {
 		$post_meta = get_post_meta( get_the_ID(), 'geo_cmb2_section', true );
 		$countries = wp_list_pluck( $post_meta, 'country_text_select' );
-		$geo_key = $geo . '_cmb2_content';
+		$field_key = 'cmb2_content';
+
 		if ( in_array( $geo, $countries, true ) ) {
 			$i = array_search( $geo, $countries, true );
-			$geo_content = isset( $post_meta[ $i ][ $geo_key ] ) ? $post_meta[ $i ][ $geo_key ] : false;
+			$geo_content = isset( $post_meta[ $i ][ $field_key ] ) ? $post_meta[ $i ][ $field_key ] : false;
 
 			if ( ! empty( $geo_content ) ) {
-				$content .= $geo_content;
+				$content .= wp_kses_post( $geo_content );
 			}
 		}
 	} elseif ( isset( $default_content ) ) {
