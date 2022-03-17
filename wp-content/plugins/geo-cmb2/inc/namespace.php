@@ -179,7 +179,7 @@ function render_the_geo_content( string $content ) : string {
 		$countries = wp_list_pluck( $post_meta, 'country_text_select' );
 		$geo_key = $geo . '_cmb2_content';
 		if ( in_array( $geo, $countries, true ) ) {
-			$i = array_search( $geo, $countries );
+			$i = array_search( $geo, $countries, true );
 			$geo_content = isset( $post_meta[ $i ][ $geo_key ] ) ? $post_meta[ $i ][ $geo_key ] : false;
 
 			if ( ! empty( $geo_content ) ) {
