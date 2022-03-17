@@ -171,16 +171,25 @@ function register_cmb2_metaboxes() {
 function render_the_geo_content( string $content ) : string {
 	// Get the geo content and the geo country.
 	$geo = strtolower( Geo\get_geo( 'country' ) );
-	$geo_content = get_post_meta( get_the_ID(), $geo . '_cmb2_content', true );
 	$default_content = get_post_meta( get_the_ID(), 'default_cmb2_content', true );
 
 	$content .= '<!-- Geo CMB2 Content -->';
-	if ( ! $geo_content ) {
+	if ( ! empty( $geo ) ) {
+		$post_meta = get_post_meta( get_the_ID() );
+		if ( isset( $post_meta['geo_cmb2_section'][0] ) ) {
+			$translation_list = maybe_unserialize( $post_meta['geo_cmb2_section'][0] );
+			foreach ( $translation_list as $translation ) {
+				if ( isset( $translation['country_text_select'] ) ) {
+					if ( $translation['country_text_select'] === $geo ) {
+						$content .= wp_kses_post( $translation[ $geo . '_cmb2_content' ] );
+					} else {
+						$content .= wp_kses_post( $default_content );
+					}
+				}
+			}
+		}
+	} elseif ( isset( $default_content ) ) {
 		$content .= wp_kses_post( $default_content );
-	}
-
-	if ( isset( $geo_content ) ) {
-		$content .= wp_kses_post( $geo_content );
 	}
 	$content .= '<!-- End Geo CMB2 Content -->';
 
