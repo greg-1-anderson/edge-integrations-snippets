@@ -9,8 +9,8 @@ The diagram below illustrates the how this plugin fits in with Pantheon's Edge I
 ```mermaid
 flowchart TB
 agcdn[/Pantheon Advanced Global CDN\]-->ei[Pantheon Edge Integrations global library]
-ei-->eiwpplugin(Pantheon WordPress Edge Integrations plugin)
-eiwpplugin-->(Geo ACF)
+ei-->eiplugin(Pantheon WordPress Edge Integrations plugin)
+eiplugin-->geoacf(Geo ACF)
 ```
 
 ## Description
