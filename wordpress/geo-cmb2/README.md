@@ -10,7 +10,7 @@ The diagram below illustrates the how this plugin fits in with Pantheon's Edge I
 flowchart TB
 agcdn[/Pantheon Advanced Global CDN\]-->ei[Pantheon Edge Integrations global library]
 ei-->eiplugin(Pantheon WordPress Edge Integrations plugin)
-eiplugin-->Geo CMB2
+eiplugin-->(Geo CMB2)
 ```
 
 ## Description
