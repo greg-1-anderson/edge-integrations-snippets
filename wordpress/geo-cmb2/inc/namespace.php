@@ -130,15 +130,20 @@ function register_cmb2_metaboxes() {
 function render_the_geo_content( string $content ) : string {
 	// Get the geo content and the geo country.
 	$geo = strtolower( Geo\get_geo( 'country' ) );
+	$post_meta = get_post_meta( get_the_ID(), 'geo_cmb2_section', true );
 	$default_content = get_post_meta( get_the_ID(), 'default_cmb2_content', true );
+
+	// Bail early if we don't have the post meta we expected.
+	if ( ! $post_meta  ) {
+		return $content;
+	}
 
 	$content .= '<!-- Geo CMB2 Content -->';
 	if ( ! empty( $geo ) ) {
-		$post_meta = get_post_meta( get_the_ID(), 'geo_cmb2_section', true );
-		$countries = wp_list_pluck( $post_meta, 'country_text_select' );
+		$countries = $post_meta ? wp_list_pluck( $post_meta, 'country_text_select' ) : [];
 		$field_key = 'cmb2_content';
 
-		if ( in_array( $geo, $countries, true ) ) {
+		if ( ! empty( $post_meta ) && in_array( $geo, $countries, true ) ) {
 			$i = array_search( $geo, $countries, true );
 			$geo_content = isset( $post_meta[ $i ][ $field_key ] ) ? $post_meta[ $i ][ $field_key ] : false;
 
